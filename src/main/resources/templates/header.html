@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" lang="kk">
+<head>
+	<div th:fragment = "header-css">  	 	
+	    
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.2/sockjs.min.js"></script>
+    	<script type="text/javascript" th:src="@{/js/main.js}"></script>
+    </div>   
+        
+</head>
+
+<body>
+
+	<div th:fragment="mynavbar">
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#">Jobs</a>
+                    </div>
+                                                   
+                    <div sec:authorize ="isAuthenticated()">	
+                    					
+						<div class="nav navbar-nav navbar-right">
+                   			<a th:href="@{/vacancies}"><button class="btn btn-danger navbar-btn">Жұмыстар</button></a>							
+							<a th:href="@{/notifications}"><button class="btn btn-secondary navbar-btn">Хабарлар</button></a>
+						
+						<form th:action="@{/logout}" method="post">							
+							<input type="submit" value="Шығу" class="btn btn-primary"/>
+						</form>
+						
+						</div>    
+					</div>	
+                                                                                                                              
+                  </div>
+            </nav>
+	</div>
+</body>
+
+
+</html>

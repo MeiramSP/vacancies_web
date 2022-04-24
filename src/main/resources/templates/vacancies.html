@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kk">
+<head>
+
+<title>Бос орындар</title>
+	<div th:replace="header :: header-css"/>
+	<script type="text/javascript" th:src="@{/js/vacancies.js}"></script>
+	
+</head>
+<body>
+	<div th:replace = "header :: mynavbar"/> 
+	<br/></br>
+	<div class="container text-center">
+		<div>
+			<p>Қош келдіңіз <b>[[${#request.userPrincipal.principal.fullName}]]</b></p>				
+		</div>
+		<div>
+			<h1>Бос орындар</h1>
+		</div>
+
+		<div>
+			<table class="table table-striped table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>ID</th>
+						<th>Позиция</th>
+						<th>Компания</th>
+						<th>Сипаттама</th>
+						<th>Еңбекақы</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="vacancy: ${listVacancies}">
+						<td th:text="${vacancy.id}" class="vacancyId"></td>
+						<td th:text="${vacancy.position}" class="position"></td>
+						<td th:text="${vacancy.company}"></td>
+						<td th:text="${vacancy.description}"></td>
+						<td th:text="${vacancy.salary}"></td>
+						<td>
+							<button class="btn btn-success oBtn" th:id="${vacancy.id}">Жауап беру</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="replyForm">
+		<form
+			th:action="@{/replyes/save}" th:object="${reply}" method="post" >
+			
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="modelLabel"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="modal-body">
+												
+							<input type="hidden" id="vacancyId" name="vacancyId" th:field="*{vacancy.id}" value="">				
+							
+							<div class="form-group">
+								<label class="form-control-label">[[${#request.userPrincipal.principal.fullName}]]</label>															
+							</div>
+														
+							<div class="form-group">
+								<label for="describe" class="form-control-label">Трансмиссиялық хат:</label>
+								<textarea class="form-control" id="description" name="description" th:field="*{message}" rows="4"></textarea>
+							</div>
+							
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"data-dismiss="modal">Жабу</button>
+							<input type="submit" class="btn btn-primary" value="Жіберу" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+
+</body>
+</html>
